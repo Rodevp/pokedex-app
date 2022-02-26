@@ -1,4 +1,5 @@
 import { Container, useMediaQuery} from '@chakra-ui/react';
+import Desktop from './screens/Desktop';
 import Mobile from './screens/Mobile'
 
 
@@ -9,11 +10,12 @@ function App() {
   return (
     <>
       <Container
-        width={`${mediaWidthContent ? '90%' : ''}`}
+        width={`${mediaWidthContent ? '100%' : ''}`}
         marginLeft='auto'
         marginRight='auto'
         maxWidth='auto'
       >
+        <Desktop />
       </Container>
     </>
   )
