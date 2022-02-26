@@ -6,7 +6,8 @@ import {
     Link,
     Text,
     Image,
-    Input
+    Input,
+    Button
 } from '@chakra-ui/react';
 
 import Logo from '../images/ball.png'
@@ -56,6 +57,9 @@ const Desktop = () => {
         },
     ]
 
+
+    const fixedData = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+
     return (
         <>
             {
@@ -88,7 +92,7 @@ const Desktop = () => {
                                     display='flex'
                                     justifyContent='center'
                                     alignItems='center'
-                                    >
+                                >
                                     <Link
                                         height='80%'
                                         width='90%'
@@ -150,9 +154,72 @@ const Desktop = () => {
                     </GridItem>
                     <GridItem
                         gridArea={'main'}
-                        bgColor='blue.700'
+                        paddingLeft='1rem'
+                        paddingRight='1rem'
+                        paddingTop='1rem'
+                        overflowY='scroll'
+                        display='flex'
+                        flexWrap='wrap'
+                        alignItems='start'
+                        justifyContent='center'
+                        height='100%'
+                        width='100%'
                     >
-                        main
+                        {
+                            fixedData.map(value => (
+                                <Box
+                                    key={value}
+                                    width='20%'
+                                    bgColor='#ebeef3'
+                                    display='flex'
+                                    flexDirection='column'
+                                    alignItems='center'
+                                    justifyContent='space-evenly'
+                                    position='relative'
+                                    marginLeft='1rem'
+                                    marginBottom='1rem'
+                                >
+                                    <Box
+                                        width='100%'
+                                        height='50%'
+                                        paddingTop='2rem'
+                                        paddingBottom='2rem'
+                                        bgColor='blue.700'
+                                    >
+
+                                    </Box>
+                                    <Image
+                                        borderRadius='full'
+                                        boxSize='55px'
+                                        border='2px'
+                                        position='absolute'
+                                        top='20%'
+                                    />
+                                    <Box
+                                        paddingTop='2rem'
+                                        paddingBottom='2rem'
+                                        height='50%'
+                                        width='100%'
+                                        display='flex'
+                                        justifyContent='center'
+                                    >
+                                        <Button
+                                            width='80%'
+                                            borderRadius='md'
+                                            bgColor='blue.500'
+                                            color='white'
+                                            _hover={
+                                                {
+                                                    backgroundColor: 'blue.600'
+                                                }
+                                            }
+                                        >
+                                            Ver
+                                        </Button>
+                                    </Box>
+                                </Box>
+                            ))
+                        }
                     </GridItem>
                 </Grid>
             }
