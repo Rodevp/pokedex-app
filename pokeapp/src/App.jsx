@@ -1,22 +1,45 @@
-import { Container, useMediaQuery} from '@chakra-ui/react';
-import Desktop from './screens/Desktop';
+import { Container } from '@chakra-ui/react';
+import { useEffect, useState } from 'react';
+import Desktop from './screens/Desktop'
 import Mobile from './screens/Mobile'
-
 
 function App() {
 
-  const [mediaWidthContent] = useMediaQuery('(min-width: 720px)')
+  const [widthMedia, setWidthMedia] = useState(false)
+
+  useEffect(() => {
+
+    document.body.clientWidth >= 920 ? setWidthMedia(true) : setWidthMedia(false)
+    
+    window.addEventListener('resize', () => {
+
+      if (document.body.clientWidth >= 920) {
+        setWidthMedia(true)
+      } else {
+        setWidthMedia(false)
+      }
+
+    })
+
+    return () => {
+      window.removeEventListener('resize', () => {})
+    }
+
+  }, [])
+
+
 
   return (
     <>
       <Container
-        width={`${mediaWidthContent ? '100%' : ''}`}
+        width={`100%`}
         marginLeft='auto'
         marginRight='auto'
         maxWidth='auto'
       >
-        <Desktop />
-        <Mobile />
+        {
+          widthMedia ? <Desktop /> : <Mobile /> 
+        }
       </Container>
     </>
   )

@@ -14,8 +14,6 @@ import Logo from '../images/ball.png'
 
 const Desktop = () => {
 
-    const [media] = useMediaQuery('(min-width: 920px)')
-
     const routes = [
         {
             text: 'Todos',
@@ -62,168 +60,165 @@ const Desktop = () => {
 
     return (
         <>
-            {
-                media && <Grid
-                    templateColumns='repeat(4, 1fr)'
-                    templateRows='repeat(5, 1fr)'
-                    gridTemplateAreas={`
+            <Grid
+                templateColumns='repeat(4, 1fr)'
+                templateRows='repeat(5, 1fr)'
+                gridTemplateAreas={`
                 'sidebar search search search'
                 'sidebar main main main'
                 'sidebar main main main'
                 'sidebar main main main'
                 'sidebar main main main'
             `}
-                    gap={0}
-                    height='100vh'
+                gap={0}
+                height='100vh'
+            >
+                <GridItem
+                    gridArea={'sidebar'}
+                    bgColor='#ebeef3'
                 >
-                    <GridItem
-                        gridArea={'sidebar'}
-                        bgColor='#ebeef3'
-                    >
-                        {
-                            routes.map(route => (
-                                <Box
-                                    key={route.text}
-                                    height='9%'
+                    {
+                        routes.map(route => (
+                            <Box
+                                key={route.text}
+                                height='9%'
+                                width='90%'
+                                marginTop='2'
+                                marginLeft='auto'
+                                marginRight='auto'
+                                display='flex'
+                                justifyContent='center'
+                                alignItems='center'
+                            >
+                                <Link
+                                    height='80%'
                                     width='90%'
-                                    marginTop='2'
-                                    marginLeft='auto'
-                                    marginRight='auto'
-                                    display='flex'
-                                    justifyContent='center'
-                                    alignItems='center'
+                                    textAlign='center'
+                                    padding='1.5'
+                                    bgColor='blackAlpha.700'
+                                    fontSize='1.2rem'
+                                    rounded='md'
+                                    bgGradient={route.bg}
+                                    color={route.color !== undefined ? route.color : 'white'}
                                 >
-                                    <Link
-                                        height='80%'
-                                        width='90%'
-                                        textAlign='center'
-                                        padding='1.5'
-                                        bgColor='blackAlpha.700'
-                                        fontSize='1.2rem'
-                                        rounded='md'
-                                        bgGradient={route.bg}
-                                        color={route.color !== undefined ? route.color : 'white'}
-                                    >
-                                        {route.text}
-                                    </Link>
-                                </Box>
+                                    {route.text}
+                                </Link>
+                            </Box>
 
-                            ))
-                        }
-                    </GridItem>
-                    <GridItem
-                        gridArea={'search'}
-                        bgColor='#ff0000'
+                        ))
+                    }
+                </GridItem>
+                <GridItem
+                    gridArea={'search'}
+                    bgColor='#ff0000'
+                    display='flex'
+                    justifyContent='space-evenly'
+                >
+                    <Box
+                        width='35%'
                         display='flex'
                         justifyContent='space-evenly'
+                        alignItems='center'
                     >
-                        <Box
-                            width='35%'
-                            display='flex'
-                            justifyContent='space-evenly'
-                            alignItems='center'
+                        <Heading as='h5'
+                            fontSize='2rem'
+                            color='white'
                         >
-                            <Heading as='h5'
-                                fontSize='2rem'
-                                color='white'
-                            >
-                                POKEAPP
-                            </Heading>
-                            <Box>
-                                <Image
-                                    src={Logo}
-                                    alt='logo pokemon'
-                                    borderRadius='full'
-                                    border='2px'
-                                    boxSize='40px'
-                                />
-                            </Box>
-                        </Box>
-                        <Box
-                            width='55%'
-                            display='flex'
-                            justifyContent='center'
-                            alignItems='center'
-                        >
-                            <Input
-                                placeholder='Burcar Pokemon'
-                                bgColor='white'
-                                color='blue.400'
+                            POKEAPP
+                        </Heading>
+                        <Box>
+                            <Image
+                                src={Logo}
+                                alt='logo pokemon'
+                                borderRadius='full'
+                                border='2px'
+                                boxSize='40px'
                             />
                         </Box>
-                    </GridItem>
-                    <GridItem
-                        gridArea={'main'}
-                        paddingLeft='1rem'
-                        paddingRight='1rem'
-                        paddingTop='1rem'
-                        overflowY='scroll'
+                    </Box>
+                    <Box
+                        width='55%'
                         display='flex'
-                        flexWrap='wrap'
-                        alignItems='start'
                         justifyContent='center'
-                        height='100%'
-                        width='100%'
+                        alignItems='center'
                     >
-                        {
-                            fixedData.map(value => (
+                        <Input
+                            placeholder='Burcar Pokemon'
+                            bgColor='white'
+                            color='blue.400'
+                        />
+                    </Box>
+                </GridItem>
+                <GridItem
+                    gridArea={'main'}
+                    paddingLeft='1rem'
+                    paddingRight='1rem'
+                    paddingTop='1rem'
+                    overflowY='scroll'
+                    display='flex'
+                    flexWrap='wrap'
+                    alignItems='start'
+                    justifyContent='center'
+                    height='100%'
+                    width='100%'
+                >
+                    {
+                        fixedData.map(value => (
+                            <Box
+                                key={value}
+                                width='20%'
+                                bgColor='#ebeef3'
+                                display='flex'
+                                flexDirection='column'
+                                alignItems='center'
+                                justifyContent='space-evenly'
+                                position='relative'
+                                marginLeft='1rem'
+                                marginBottom='1rem'
+                            >
                                 <Box
-                                    key={value}
-                                    width='20%'
-                                    bgColor='#ebeef3'
-                                    display='flex'
-                                    flexDirection='column'
-                                    alignItems='center'
-                                    justifyContent='space-evenly'
-                                    position='relative'
-                                    marginLeft='1rem'
-                                    marginBottom='1rem'
+                                    width='100%'
+                                    height='50%'
+                                    paddingTop='2rem'
+                                    paddingBottom='2rem'
+                                    bgColor='blue.700'
                                 >
-                                    <Box
-                                        width='100%'
-                                        height='50%'
-                                        paddingTop='2rem'
-                                        paddingBottom='2rem'
-                                        bgColor='blue.700'
-                                    >
 
-                                    </Box>
-                                    <Image
-                                        borderRadius='full'
-                                        boxSize='55px'
-                                        border='2px'
-                                        position='absolute'
-                                        top='20%'
-                                    />
-                                    <Box
-                                        paddingTop='2rem'
-                                        paddingBottom='2rem'
-                                        height='50%'
-                                        width='100%'
-                                        display='flex'
-                                        justifyContent='center'
-                                    >
-                                        <Button
-                                            width='80%'
-                                            borderRadius='md'
-                                            bgColor='blue.500'
-                                            color='white'
-                                            _hover={
-                                                {
-                                                    backgroundColor: 'blue.600'
-                                                }
-                                            }
-                                        >
-                                            Ver
-                                        </Button>
-                                    </Box>
                                 </Box>
-                            ))
-                        }
-                    </GridItem>
-                </Grid>
-            }
-
+                                <Image
+                                    borderRadius='full'
+                                    boxSize='55px'
+                                    border='2px'
+                                    position='absolute'
+                                    top='20%'
+                                />
+                                <Box
+                                    paddingTop='2rem'
+                                    paddingBottom='2rem'
+                                    height='50%'
+                                    width='100%'
+                                    display='flex'
+                                    justifyContent='center'
+                                >
+                                    <Button
+                                        width='80%'
+                                        borderRadius='md'
+                                        bgColor='blue.500'
+                                        color='white'
+                                        _hover={
+                                            {
+                                                backgroundColor: 'blue.600'
+                                            }
+                                        }
+                                    >
+                                        Ver
+                                    </Button>
+                                </Box>
+                            </Box>
+                        ))
+                    }
+                </GridItem>
+            </Grid>
         </>
     )
 }

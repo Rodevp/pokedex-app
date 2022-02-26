@@ -13,8 +13,7 @@ import {
 
 
 const Mobile = () => {
-
-    const [media] = useMediaQuery('(min-width: 920px)')
+    
     const [mediaWidthContent] = useMediaQuery('(min-width: 720px)')
     const [mediaWidthCard] = useMediaQuery('(min-width: 720px)')
 
@@ -57,8 +56,7 @@ const Mobile = () => {
 
     return (
         <>
-            {
-                !media &&  <Box
+            <Box
                 width={`${mediaWidthContent ? '100%' : ''}`}
             >
                 <Heading
@@ -138,7 +136,6 @@ const Mobile = () => {
                     }
                 </Stack>
             </Box>
-            }
         </>
     )
 }
