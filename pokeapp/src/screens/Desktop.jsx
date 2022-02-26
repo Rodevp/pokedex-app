@@ -3,9 +3,13 @@ import {
     GridItem,
     Box,
     useMediaQuery,
-    Link
+    Link,
+    Text,
+    Image,
+    Input
 } from '@chakra-ui/react';
 
+import Logo from '../images/ball.png'
 
 const Desktop = () => {
 
@@ -105,9 +109,44 @@ const Desktop = () => {
                     </GridItem>
                     <GridItem
                         gridArea={'search'}
-                        bgColor='blue.600'
+                        bgColor='#ff0000'
+                        display='flex'
+                        justifyContent='space-evenly'
                     >
-                        search
+                        <Box
+                            width='35%'
+                            display='flex'
+                            justifyContent='space-evenly'
+                            alignItems='center'
+                        >
+                            <Text
+                                fontSize='2.5rem'
+                                color='white'
+                            >
+                                POKEAPP
+                            </Text>
+                            <Box>
+                                <Image
+                                    src={Logo}
+                                    alt='logo pokemon'
+                                    borderRadius='full'
+                                    border='2px'
+                                    boxSize='40px'
+                                />
+                            </Box>
+                        </Box>
+                        <Box
+                            width='55%'
+                            display='flex'
+                            justifyContent='center'
+                            alignItems='center'
+                        >
+                            <Input
+                                placeholder='Burcar Pokemon'
+                                bgColor='white'
+                                color='blue.400'
+                            />
+                        </Box>
                     </GridItem>
                     <GridItem
                         gridArea={'main'}
