@@ -18,84 +18,7 @@ const Mobile = () => {
     const [mediaWidthContent] = useMediaQuery('(min-width: 720px)')
     const [mediaWidthCard] = useMediaQuery('(min-width: 720px)')
 
-    const arrFixed = [
-        {
-            name: 'vulvasur',
-            id: 0
-        },
-        {
-            name: 'vulvasur',
-            id: 1
-        },
-        {
-            name: 'vulvasur',
-            id: 2
-        },
-        {
-            name: 'vulvasur',
-            id: 3
-        },
-        {
-            name: 'vulvasur',
-            id: 4
-        },
-        {
-            name: 'vulvasur',
-            id: 5
-        },
-        {
-            name: 'vulvasur',
-            id: 6
-        },
-        {
-            name: 'vulvasur',
-            id: 7
-        },
-        {
-            name: 'vulvasur',
-            id: 8
-        },
-        {
-            name: 'vulvasur',
-            id: 9
-        },
-        {
-            name: 'vulvasur',
-            id: 10
-        },
-        {
-            name: 'vulvasur',
-            id: 11
-        },
-        {
-            name: 'vulvasur',
-            id: 12
-        }, {
-            name: 'vulvasur',
-            id: 13
-        }, {
-            name: 'vulvasur',
-            id: 14
-        }, {
-            name: 'vulvasur',
-            id: 15
-        }, {
-            name: 'vulvasur',
-            id: 16
-        }, {
-            name: 'vulvasur',
-            id: 17
-        }, {
-            name: 'vulvasur',
-            id: 18
-        }, {
-            name: 'vulvasur',
-            id: 19
-        }, {
-            name: 'vulvasur',
-            id: 20
-        },
-    ]
+    const arrFixed = []
 
     const options = [
         {
@@ -106,24 +29,49 @@ const Mobile = () => {
             text: 'Roca',
             id: 6
         },
+        {
+            text: 'Fantasma',
+            id: 8
+        },
+        {
+            text: 'Fuego',
+            id: 10
+        },
+        {
+            text: 'Agua',
+            id: 11
+        },
+        {
+            text: 'Electrico',
+            id: 13
+        },
+        {
+            text: 'Psiquico',
+            id: 14
+        },
+        {
+            text: 'Planta',
+            id: 12
+        }
     ]
 
     return (
         <>
-            <Box
-                display={`${media ? 'none' : 'block'}`}
+            {
+                !media &&  <Box
                 width={`${mediaWidthContent ? '100%' : ''}`}
             >
                 <Heading
                     as='h2'
                     size='sm'
-                    bgColor='red.600'
+                    bgColor='#ff0000'
                     paddingBottom='0.75em'
                     paddingTop='0.75em'
                     textAlign='center'
                     fontSize='1.5rem'
                     color='white'
                     marginBottom='1rem'
+                    width='100%'
                 >
                     PokeApp
                 </Heading>
@@ -172,7 +120,7 @@ const Mobile = () => {
                                 display='flex'
                                 justifyContent='space-evenly'
                                 alignItems='center'
-                                width={`${mediaWidthCard ? '95%' : '100%'}`}
+                                width={`${mediaWidthCard ? '90%' : '100%'}`}
                             >
                                 <Avatar />
                                 <Text width='25%' fontSize='1.2rem' textAlign='center'>
@@ -190,6 +138,7 @@ const Mobile = () => {
                     }
                 </Stack>
             </Box>
+            }
         </>
     )
 }

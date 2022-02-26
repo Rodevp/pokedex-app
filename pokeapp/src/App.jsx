@@ -14,7 +14,6 @@ function App() {
         marginRight='auto'
         maxWidth='auto'
       >
-        <Mobile />
       </Container>
     </>
   )
