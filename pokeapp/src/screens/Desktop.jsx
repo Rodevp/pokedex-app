@@ -4,10 +4,10 @@ import {
     Box,
     useMediaQuery,
     Link,
-    Text,
     Image,
     Input,
-    Button
+    Button,
+    Heading
 } from '@chakra-ui/react';
 
 import Logo from '../images/ball.png'
@@ -123,12 +123,12 @@ const Desktop = () => {
                             justifyContent='space-evenly'
                             alignItems='center'
                         >
-                            <Text
-                                fontSize='2.5rem'
+                            <Heading as='h5'
+                                fontSize='2rem'
                                 color='white'
                             >
                                 POKEAPP
-                            </Text>
+                            </Heading>
                             <Box>
                                 <Image
                                     src={Logo}

@@ -16,6 +16,7 @@ function App() {
         maxWidth='auto'
       >
         <Desktop />
+        <Mobile />
       </Container>
     </>
   )
