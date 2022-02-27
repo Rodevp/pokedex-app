@@ -2,6 +2,7 @@ import { Container } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import Desktop from './screens/Desktop'
 import Mobile from './screens/Mobile'
+import { Detail } from './screens/Detail';
 
 function App() {
 
@@ -36,10 +37,13 @@ function App() {
         marginLeft='auto'
         marginRight='auto'
         maxWidth='auto'
+        display='flex'
+        justifyContent='center'
       >
         {
-          widthMedia ? <Desktop /> : <Mobile /> 
+          //widthMedia ? <Desktop /> : <Mobile /> 
         }
+        <Detail />
       </Container>
     </>
   )
