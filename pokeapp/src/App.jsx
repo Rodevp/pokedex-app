@@ -41,10 +41,13 @@ function App() {
         justifyContent='center'
       >
         {
-          //widthMedia ? <Desktop /> : <Mobile /> 
+          widthMedia ? <Desktop /> : <Mobile /> 
         }
-        <Detail />
-      </Container>
+        
+        {
+          // <Detail />
+        }
+        </Container>
     </>
   )
 }
