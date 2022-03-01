@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { getAllPokemon } from '../api/api'
+import { getAllPokemon,getTypePokemon } from '../api/api'
 import {
     Stack,
     Box,
@@ -18,6 +18,7 @@ import logoBall from '../images/ball.png'
 const Mobile = () => {
     
     const [pokemon, setPokemon] = useState([])
+    const [type, setType] = useState(0)
 
     const [mediaWidthContent] = useMediaQuery('(min-width: 720px)')
     const [mediaWidthCard] = useMediaQuery('(min-width: 720px)')
@@ -62,14 +63,36 @@ const Mobile = () => {
     ]
 
     useEffect( async () => {
-
-        const response = await getAllPokemon() 
-
+        
+        console.log('type', type)
+        
+        const response = await getTypePokemon(type) 
+        
+        
         if (await response.OK) {
-            setPokemon(response.results)
+            
+            const data = response.results === undefined 
+                ? [...response.pokemon].map(element => element.pokemon) 
+                : response.results
+
+            setPokemon(data)
+
         }
 
-    }, [])
+    }, [type])
+
+    const onChangeType = e => {
+        
+        const option = e.target.value
+
+        if (option === 0) {
+            setType(0)
+        } else {
+            console.log(option)
+            setType(option)
+        }
+
+    }
 
 
     return (
@@ -100,7 +123,7 @@ const Mobile = () => {
                         placeholder='Buscar pokemon'
                         width='55%'
                     />
-                    <Select width='35%'>
+                    <Select width='35%' onChange={onChangeType}>
                         {
                             options.map(optionType => (
                                 <option key={optionType.text} value={optionType.id}>
@@ -125,7 +148,7 @@ const Mobile = () => {
                     alignItems='center'
                 >
                     {
-                        pokemon.map(ele => (
+                        pokemon === undefined ? <p>Cargando..</p> : pokemon.map(ele => (
                             <Box
                                 key={ele.name}
                                 marginBottom='0.2rem'
