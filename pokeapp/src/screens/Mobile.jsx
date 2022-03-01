@@ -18,7 +18,11 @@ const Mobile = () => {
 
     const [type, setType] = useState(0)
     const [pokemon, copyPokemon] = useGetPokemons(type)
-    const [pokeData, setPokeData] = useState([...pokemon])
+    const [pokeData, setPokeData] = useState([])
+
+    useEffect(() => {
+        setPokeData(pokemon)
+    }, [pokemon])
 
     const [mediaWidthContent] = useMediaQuery('(min-width: 720px)')
     const [mediaWidthCard] = useMediaQuery('(min-width: 720px)')
