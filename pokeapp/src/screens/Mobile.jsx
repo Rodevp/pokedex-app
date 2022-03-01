@@ -1,3 +1,5 @@
+import { useEffect, useState } from 'react'
+import { getAllPokemon } from '../api/api'
 import {
     Stack,
     Box,
@@ -10,16 +12,21 @@ import {
     Button,
     useMediaQuery
 } from '@chakra-ui/react';
+import logoBall from '../images/ball.png'
 
 
 const Mobile = () => {
     
+    const [pokemon, setPokemon] = useState([])
+
     const [mediaWidthContent] = useMediaQuery('(min-width: 720px)')
     const [mediaWidthCard] = useMediaQuery('(min-width: 720px)')
 
-    const arrFixed = []
-
     const options = [
+        {
+            text: 'Todos',
+            id: 0
+        },
         {
             text: 'Veneno',
             id: 4
@@ -53,6 +60,17 @@ const Mobile = () => {
             id: 12
         }
     ]
+
+    useEffect( async () => {
+
+        const response = await getAllPokemon() 
+
+        if (await response.OK) {
+            setPokemon(response.results)
+        }
+
+    }, [])
+
 
     return (
         <>
@@ -107,9 +125,9 @@ const Mobile = () => {
                     alignItems='center'
                 >
                     {
-                        arrFixed.map(ele => (
+                        pokemon.map(ele => (
                             <Box
-                                key={ele.id}
+                                key={ele.name}
                                 marginBottom='0.2rem'
                                 paddingBottom='1em'
                                 paddingTop='1em'
@@ -120,7 +138,9 @@ const Mobile = () => {
                                 alignItems='center'
                                 width={`${mediaWidthCard ? '90%' : '100%'}`}
                             >
-                                <Avatar />
+                                <Avatar 
+                                    src={logoBall}
+                                />
                                 <Text width='25%' fontSize='1.2rem' textAlign='center'>
                                     {ele.name}
                                 </Text>
