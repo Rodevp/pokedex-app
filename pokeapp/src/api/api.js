@@ -4,32 +4,9 @@ const uriTypePokemon = id => {
     return id.toString() === '0' ? getAllPokemonUri() : `https://pokeapi.co/api/v2/type/${id}/?limit=150`
 }
 
-
-const getAllPokemon = async () => {
-    try {
-        const res =  await fetch( getAllPokemonUri() )
-        
-        if ( res.status  !== 200 ) {
-            return {
-                OK: false,
-                message: 'No se han encontrado los pokemones',
-            }
-        }
-
-        return {
-            ...await res.json(),
-            OK: true
-        }
-
-    } catch (error) {
-        console.error('ha fallado la request', error.message)
-    }
-
-} 
-
 const getTypePokemon = async (idType) => {
+
     try {
-        console.log('uri return: ', uriTypePokemon(idType) )
         const res =  await fetch( uriTypePokemon(idType) )
         
         if ( res.status  !== 200 ) {
@@ -51,6 +28,5 @@ const getTypePokemon = async (idType) => {
 } 
 
 export {
-    getAllPokemon,
     getTypePokemon
 }

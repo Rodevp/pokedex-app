@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { getAllPokemon,getTypePokemon } from '../api/api'
+import { getTypePokemon } from '../api/api'
 import {
     Stack,
     Box,
@@ -14,10 +14,10 @@ import {
 } from '@chakra-ui/react';
 import logoBall from '../images/ball.png'
 
-
 const Mobile = () => {
     
     const [pokemon, setPokemon] = useState([])
+    const [copyPokemon, setCopyPokemon] = useState([])
     const [type, setType] = useState(0)
 
     const [mediaWidthContent] = useMediaQuery('(min-width: 720px)')
@@ -64,31 +64,40 @@ const Mobile = () => {
 
     useEffect( async () => {
         
-        console.log('type', type)
-        
         const response = await getTypePokemon(type) 
-        
         
         if (await response.OK) {
             
             const data = response.results === undefined 
                 ? [...response.pokemon].map(element => element.pokemon) 
                 : response.results
-
+            setCopyPokemon(data)
             setPokemon(data)
 
         }
 
     }, [type])
 
-    const onChangeType = e => {
+
+    const handleChangeInput = e => {
+        const namePokemon = e.target.value
+
+        if (namePokemon !== '') {
+            const filterPokemonByName = [...pokemon].filter(pokemon => pokemon.name.includes(namePokemon) ) 
+            setPokemon(filterPokemonByName)
+        } else {
+            setPokemon(copyPokemon)
+        }
+
+    }
+
+    const handleChangeType = e => {
         
         const option = e.target.value
 
         if (option === 0) {
             setType(0)
         } else {
-            console.log(option)
             setType(option)
         }
 
@@ -122,8 +131,9 @@ const Mobile = () => {
                     <Input
                         placeholder='Buscar pokemon'
                         width='55%'
+                        onChange={handleChangeInput}
                     />
-                    <Select width='35%' onChange={onChangeType}>
+                    <Select width='35%' onChange={handleChangeType}>
                         {
                             options.map(optionType => (
                                 <option key={optionType.text} value={optionType.id}>
