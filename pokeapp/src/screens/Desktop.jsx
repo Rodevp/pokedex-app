@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import {
     Grid,
     GridItem,
@@ -14,7 +15,7 @@ import Logo from '../images/ball.png'
 
 const Desktop = () => {
 
-    const routes = [
+    const options = [
         {
             text: 'Todos',
             bg: 'linear(to-l, #f9fafc, #f9fafc)',
@@ -78,7 +79,7 @@ const Desktop = () => {
                     bgColor='#ebeef3'
                 >
                     {
-                        routes.map(route => (
+                        options.map(route => (
                             <Box
                                 key={route.text}
                                 height='9%'

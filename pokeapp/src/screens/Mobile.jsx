@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react'
-import { getTypePokemon } from '../api/api'
+import { useState, useEffect } from 'react'
+import useGetPokemons from '../hooks/useGetPokemons'
 import {
     Stack,
     Box,
@@ -15,10 +15,10 @@ import {
 import logoBall from '../images/ball.png'
 
 const Mobile = () => {
-    
-    const [pokemon, setPokemon] = useState([])
-    const [copyPokemon, setCopyPokemon] = useState([])
+
     const [type, setType] = useState(0)
+    const [pokemon, copyPokemon] = useGetPokemons(type)
+    const [pokeData, setPokeData] = useState([...pokemon])
 
     const [mediaWidthContent] = useMediaQuery('(min-width: 720px)')
     const [mediaWidthCard] = useMediaQuery('(min-width: 720px)')
@@ -62,37 +62,21 @@ const Mobile = () => {
         }
     ]
 
-    useEffect( async () => {
-        
-        const response = await getTypePokemon(type) 
-        
-        if (await response.OK) {
-            
-            const data = response.results === undefined 
-                ? [...response.pokemon].map(element => element.pokemon) 
-                : response.results
-            setCopyPokemon(data)
-            setPokemon(data)
-
-        }
-
-    }, [type])
-
-
     const handleChangeInput = e => {
         const namePokemon = e.target.value
-
+        
         if (namePokemon !== '') {
-            const filterPokemonByName = [...pokemon].filter(pokemon => pokemon.name.includes(namePokemon) ) 
-            setPokemon(filterPokemonByName)
+            const filterPokemonByName = [...pokemon].filter(pokemon => 
+                                                                pokemon.name.includes(namePokemon.toLowerCase() ) )
+            setPokeData(filterPokemonByName)
         } else {
-            setPokemon(copyPokemon)
+            setPokeData(copyPokemon)
         }
 
     }
 
     const handleChangeType = e => {
-        
+
         const option = e.target.value
 
         if (option === 0) {
@@ -158,7 +142,7 @@ const Mobile = () => {
                     alignItems='center'
                 >
                     {
-                        pokemon === undefined ? <p>Cargando..</p> : pokemon.map(ele => (
+                        pokeData === undefined ? <p>Cargando..</p> : pokeData.map(ele => (
                             <Box
                                 key={ele.name}
                                 marginBottom='0.2rem'
@@ -171,7 +155,7 @@ const Mobile = () => {
                                 alignItems='center'
                                 width={`${mediaWidthCard ? '90%' : '100%'}`}
                             >
-                                <Avatar 
+                                <Avatar
                                     src={logoBall}
                                 />
                                 <Text width='25%' fontSize='1.2rem' textAlign='center'>
@@ -180,8 +164,8 @@ const Mobile = () => {
                                 <Button
                                     width='25%'
                                     bgColor='blue.700'
-                                    color='white' _hover={ { backgroundColor: 'blue.400' } }
-                                    >
+                                    color='white' _hover={{ backgroundColor: 'blue.400' }}
+                                >
                                     Ver
                                 </Button>
                             </Box>
