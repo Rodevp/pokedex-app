@@ -1,8 +1,12 @@
-import { Container } from '@chakra-ui/react';
-import { useEffect, useState } from 'react';
+import { Container } from '@chakra-ui/react'
+import { useEffect, useState } from 'react'
 import Desktop from './screens/Desktop'
 import Mobile from './screens/Mobile'
-import { Detail } from './screens/Detail';
+import { Detail } from './screens/Detail'
+import {
+  Route,
+  Routes,
+} from 'react-router-dom'
 
 function App() {
 
@@ -11,7 +15,7 @@ function App() {
   useEffect(() => {
 
     document.body.clientWidth >= 920 ? setWidthMedia(true) : setWidthMedia(false)
-    
+
     window.addEventListener('resize', () => {
 
       if (document.body.clientWidth >= 920) {
@@ -23,7 +27,7 @@ function App() {
     })
 
     return () => {
-      window.removeEventListener('resize', () => {})
+      window.removeEventListener('resize', () => { })
     }
 
   }, [])
@@ -31,24 +35,22 @@ function App() {
 
 
   return (
-    <>
-      <Container
-        width={`100%`}
-        marginLeft='auto'
-        marginRight='auto'
-        maxWidth='auto'
-        display='flex'
-        justifyContent='center'
-      >
-        {
-          widthMedia ? <Desktop /> : <Mobile /> 
-        }
-        
-        {
-          // <Detail />
-        }
-        </Container>
-    </>
+    <Container
+      width={`100%`}
+      marginLeft='auto'
+      marginRight='auto'
+      maxWidth='auto'
+      display='flex'
+      justifyContent='center'
+    >
+      <Routes>
+        <Route
+          path='/'
+          element={widthMedia ? <Desktop /> : <Mobile />}
+        />
+        <Route  path='pokemon/:name' element={<Detail />}  />
+      </Routes>
+    </Container>
   )
 }
 
