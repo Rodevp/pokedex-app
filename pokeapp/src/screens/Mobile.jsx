@@ -12,6 +12,7 @@ import {
     Button,
     useMediaQuery
 } from '@chakra-ui/react';
+import { useNavigate } from 'react-router-dom'
 import logoBall from '../images/ball.png'
 
 const Mobile = () => {
@@ -21,7 +22,8 @@ const Mobile = () => {
     const [pokeData, setPokeData] = useState([])
     const [mediaWidthContent] = useMediaQuery('(min-width: 720px)')
     const [mediaWidthCard] = useMediaQuery('(min-width: 720px)')
-    
+    const navigate = useNavigate()
+
     useEffect(() => {
         setPokeData(pokemon)
     }, [pokemon])
@@ -90,6 +92,9 @@ const Mobile = () => {
 
     }
 
+    const goToDetailOfPokemon = name => {
+        navigate(`/pokemon/${name}`)
+    }
 
     return (
         <>
@@ -168,6 +173,7 @@ const Mobile = () => {
                                     width='25%'
                                     bgColor='blue.700'
                                     color='white' _hover={{ backgroundColor: 'blue.400' }}
+                                    onClick={ (e) => { goToDetailOfPokemon(ele.name) } }
                                 >
                                     Ver
                                 </Button>
