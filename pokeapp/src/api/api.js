@@ -25,8 +25,33 @@ const getTypePokemon = async (idType) => {
         console.error('ha fallado la request', error.message)
     }
 
+}
+
+
+const getPokemonByName = async (name) => {
+
+    try {
+        const res =  await fetch( uriNamePokemon(name) )
+        
+        if ( res.status  !== 200 ) {
+            return {
+                OK: false,
+                message: 'No se ha encontrado el pokemon',
+            }
+        }
+
+        return {
+            ...await res.json(),
+            OK: true
+        }
+
+    } catch (error) {
+        console.error('ha fallado la request', error.message)
+    }
+
 } 
 
 export {
+    getPokemonByName,
     getTypePokemon
 }
