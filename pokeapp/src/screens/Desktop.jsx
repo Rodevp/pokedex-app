@@ -4,12 +4,12 @@ import {
     Grid,
     GridItem,
     Box,
-    Link,
     Image,
     Input,
     Button,
     Heading
 } from '@chakra-ui/react'
+import { useNavigate } from 'react-router-dom'
 
 import Logo from '../images/ball.png'
 
@@ -18,6 +18,7 @@ const Desktop = () => {
     const [type, setType] = useState(0)
     const [pokemon, copyPokemon] = useGetPokemons(type)
     const [pokeData, setPokeData] = useState([])
+    const navigate = useNavigate()
 
     useEffect(() => {
         setPokeData(pokemon)
@@ -27,40 +28,49 @@ const Desktop = () => {
         {
             text: 'Todos',
             bg: 'linear(to-l, #f9fafc, #f9fafc)',
-            color: 'black'
+            color: 'black',
+            type: 0
         },
         {
             text: 'Veneno',
-            bg: 'linear(to-l, #1c003b, #4b0374)'
+            bg: 'linear(to-l, #1c003b, #4b0374)',
+            type: 4
         },
         {
             text: 'Roca',
-            bg: 'linear(to-l, #582417, #8d4925)'
+            bg: 'linear(to-l, #582417, #8d4925)',
+            type: 6
         },
         {
             text: 'Fantasma',
-            bg: 'linear(to-l, #a7a7a7, #c9c9c9)'
+            bg: 'linear(to-l, #a7a7a7, #c9c9c9)',
+            type: 8
         },
         {
             text: 'Fuego',
-            bg: 'linear(to-l, #ff9800, #ffff89)'
+            bg: 'linear(to-l, #ff9800, #ffff89)',
+            type: 10
         },
         {
             text: 'Agua',
-            bg: 'linear(to-l, #2196f3, #81c9fa)'
+            bg: 'linear(to-l, #2196f3, #81c9fa)',
+            type: 11
         },
         {
             text: 'Electrico',
             bg: 'linear(to-l, #ffff00, #ffff6a)',
-            color: 'orange.700'
+            color: 'orange.700',
+            type: 13
         },
         {
             text: 'Psiquico',
-            bg: 'linear(to-l, #8000b3, #9a2bcc)'
+            bg: 'linear(to-l, #8000b3, #9a2bcc)',
+            type: 14
         },
         {
             text: 'Planta',
-            bg: 'linear(to-l, green.200, pink.500)'
+            bg: 'linear(to-l, green.200, pink.500)',
+            type: 12
         },
     ]
 
@@ -75,6 +85,14 @@ const Desktop = () => {
             setPokeData(copyPokemon)
         }
 
+    }
+
+    const typeOfPokemons = type => {
+        setType(type)
+    }
+
+    const goToDetailOfPokemon = name => {
+        navigate(`/pokemon/${name}`)
     }
 
     return (
@@ -98,9 +116,9 @@ const Desktop = () => {
                     bgColor='#ebeef3'
                 >
                     {
-                        options.map(route => (
+                        options.map(option => (
                             <Box
-                                key={route.text}
+                                key={option.text}
                                 height='9%'
                                 width='90%'
                                 marginTop='2'
@@ -110,7 +128,7 @@ const Desktop = () => {
                                 justifyContent='center'
                                 alignItems='center'
                             >
-                                <Link
+                                <Button
                                     height='80%'
                                     width='90%'
                                     textAlign='center'
@@ -118,11 +136,15 @@ const Desktop = () => {
                                     bgColor='blackAlpha.700'
                                     fontSize='1.2rem'
                                     rounded='md'
-                                    bgGradient={route.bg}
-                                    color={route.color !== undefined ? route.color : 'white'}
+                                    bgGradient={option.bg}
+                                    _hover={{
+                                        backgroundColor: option.bg
+                                    }}
+                                    color={option.color !== undefined ? option.color : 'white'}
+                                    onClick={(e) => { typeOfPokemons(option.type) }}
                                 >
-                                    {route.text}
-                                </Link>
+                                    {option.text}
+                                </Button>
                             </Box>
 
                         ))
@@ -244,6 +266,7 @@ const Desktop = () => {
                                                 backgroundColor: 'blue.600'
                                             }
                                         }
+                                        onClick={(e) => { goToDetailOfPokemon(poke.name) } }
                                     >
                                         Ver
                                     </Button>
