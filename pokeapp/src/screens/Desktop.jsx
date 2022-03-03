@@ -1,19 +1,27 @@
 import { useEffect, useState } from 'react'
+import useGetPokemons from '../hooks/useGetPokemons'
 import {
     Grid,
     GridItem,
     Box,
-    useMediaQuery,
     Link,
     Image,
     Input,
     Button,
     Heading
-} from '@chakra-ui/react';
+} from '@chakra-ui/react'
 
 import Logo from '../images/ball.png'
 
 const Desktop = () => {
+
+    const [type, setType] = useState(0)
+    const [pokemon, copyPokemon] = useGetPokemons(type)
+    const [pokeData, setPokeData] = useState([])
+
+    useEffect(() => {
+        setPokeData(pokemon)
+    }, [pokemon])
 
     const options = [
         {
@@ -56,8 +64,18 @@ const Desktop = () => {
         },
     ]
 
+    const handleChangeInput = e => {
+        const namePokemon = e.target.value
+        
+        if (namePokemon !== '') {
+            const filterPokemonByName = [...pokemon].filter(pokemon => 
+                                                                pokemon.name.includes(namePokemon.toLowerCase() ) )
+            setPokeData(filterPokemonByName)
+        } else {
+            setPokeData(copyPokemon)
+        }
 
-    const fixedData = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+    }
 
     return (
         <>
@@ -73,6 +91,7 @@ const Desktop = () => {
             `}
                 gap={0}
                 height='100vh'
+                width='100%'
             >
                 <GridItem
                     gridArea={'sidebar'}
@@ -114,6 +133,7 @@ const Desktop = () => {
                     bgColor='#ff0000'
                     display='flex'
                     justifyContent='space-evenly'
+                    width='100%'
                 >
                     <Box
                         width='35%'
@@ -147,6 +167,7 @@ const Desktop = () => {
                             placeholder='Burcar Pokemon'
                             bgColor='white'
                             color='blue.400'
+                            onChange={handleChangeInput}
                         />
                     </Box>
                 </GridItem>
@@ -160,13 +181,13 @@ const Desktop = () => {
                     flexWrap='wrap'
                     alignItems='start'
                     justifyContent='center'
-                    height='100%'
-                    width='100%'
+                    maxHeight='100%'
+                    maxWidth='100%'
                 >
                     {
-                        fixedData.map(value => (
+                        pokeData.map(poke => (
                             <Box
-                                key={value}
+                                key={poke.name}
                                 width='20%'
                                 bgColor='#ebeef3'
                                 display='flex'
@@ -192,13 +213,25 @@ const Desktop = () => {
                                     border='2px'
                                     position='absolute'
                                     top='20%'
+                                    src={Logo}
                                 />
+                                <Heading
+                                    as='h5'
+                                    fontSize='1.2rem'
+                                    position='absolute'
+                                    top='50%'
+                                    zIndex='6'
+                                >
+
+                                    {poke.name}
+                                </Heading>
                                 <Box
                                     paddingTop='2rem'
                                     paddingBottom='2rem'
                                     height='50%'
                                     width='100%'
                                     display='flex'
+                                    marginTop='25px'
                                     justifyContent='center'
                                 >
                                     <Button
